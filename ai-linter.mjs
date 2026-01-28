@@ -1,34 +1,68 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import fs from "fs";
+import path from "path";
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-3-pro-preview" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-async function lintFile(filePath) {
-  const rulesDir = "D:/Proyectos/scriptsAI/rules/";
-  const rules = fs
-    .readdirSync(rulesDir)
-    .map((file) => fs.readFileSync(rulesDir + file, "utf8"))
-    .join("\n\n");
+// 🛠️ LA FUNCIÓN DE RUTA VA AQUÍ (Igual que en v-plan y v-crud)
+function loadAllRules(dir) {
+    let content = "";
+    if (!fs.existsSync(dir)) return content;
 
-  const prompt = `
-    Actúa como un Arquitecto Senior Fullstack. Analiza el siguiente código y verifica si cumple con las reglas de arquitectura del proyecto.
-    
-    REGLAS:
-    ${rules}
-    
-    CÓDIGO A EVALUAR (${filePath}):
-    ${code}
-    
-    Si hay errores de arquitectura (ej: lógica en la UI, falta de tipos, mala ubicación), indícalos brevemente y da la solución. 
-    Si todo está perfecto, responde únicamente: "✅ Código impecable".
-  `;
+    const items = fs.readdirSync(dir);
+    items.forEach(item => {
+        const fullPath = path.join(dir, item);
+        const stat = fs.statSync(fullPath);
 
-  const result = await model.generateContent(prompt);
-  console.log(`\n🔍 Reporte para: ${filePath}\n`);
-  console.log(result.response.text());
+        if (stat.isDirectory()) {
+            content += loadAllRules(fullPath); // Entra en subcarpetas de skills
+        } else if (item.endsWith(".md")) {
+            content += `\n\n--- REGLA DE REFERENCIA: ${item} ---\n`;
+            content += fs.readFileSync(fullPath, "utf8");
+        }
+    });
+    return content;
 }
 
-const file = process.argv[2];
-if (!file) console.log("Usa: npm run lint:ai <ruta-del-archivo>");
-else lintFile(file);
+async function lintFile(filePath) {
+    if (!filePath || !fs.existsSync(filePath)) {
+        console.error("❌ Indica un archivo válido para revisar.");
+        return;
+    }
+
+    // 1. Cargamos el cerebro (todas las skills)
+    const rulesContent = loadAllRules("D:/Proyectos/scriptsAI/rules/");
+    
+    // 2. Leemos el archivo que queremos auditar
+    const codeToReview = fs.readFileSync(filePath, "utf8");
+
+    const prompt = `
+    Actúa como un Arquitecto de Software Senior y revisor de código.
+    Tu misión es auditar el siguiente archivo basándote ESTRICTAMENTE en las reglas y skills proporcionadas.
+
+    REGLAS Y SKILLS DE ÉLITE:
+    ${rulesContent}
+
+    CÓDIGO A REVISAR (${filePath}):
+    ${codeToReview}
+
+    INSTRUCCIONES DE AUDITORÍA:
+    1. Identifica violaciones a las reglas (ej: usar useEffect en lugar de useActionState, no usar useShallow en Zustand, etc.).
+    2. Si hay errores, muestra el código corregido siguiendo los patrones de Gentleman Programming.
+    3. Si el archivo está perfecto, felicita al desarrollador.
+    
+    Responde de forma concisa y técnica.
+    `;
+
+    try {
+        console.log(`🔍 Auditando ${filePath}...`);
+        const result = await model.generateContent(prompt);
+        console.log("\n--- RESULTADO DE LA AUDITORÍA ---");
+        console.log(result.response.text());
+    } catch (error) {
+        console.error("❌ Error en el linter:", error.message);
+    }
+}
+
+lintFile(process.argv[2]);

@@ -3,7 +3,6 @@ import fs from "fs";
 import path from "path";
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-// Usamos Pro para la planificación arquitectónica
 const model = genAI.getGenerativeModel({ model: "gemini-3-pro-preview" });
 
 function loadAllRules(dir) {
@@ -13,42 +12,37 @@ function loadAllRules(dir) {
     items.forEach(item => {
         const fullPath = path.join(dir, item);
         if (fs.statSync(fullPath).isDirectory()) {
-            content += loadAllRules(fullPath);
+            content += loadAllRules(fullPath); // Recursión
         } else if (item.endsWith(".md")) {
-            content += fs.readFileSync(fullPath, "utf8") + "\n\n";
+            content += `\n\n--- SOURCE: ${item} ---\n` + fs.readFileSync(fullPath, "utf8");
         }
     });
     return content;
 }
 
 async function generatePlan(userIdea) {
-    const rulesContent = loadAllRules("D:/Proyectos/scriptsAI/rules/");
+    const rulesPath = "D:/Proyectos/scriptsAI/rules/";
+    const rulesContent = loadAllRules(rulesPath);
 
     const prompt = `
     Actúa como un Lead Developer Senior. Convierte la siguiente idea en un plan técnico detallado (todo.md).
     
-    IDEA DEL USUARIO:
-    "${userIdea}"
+    IDEA: "${userIdea}"
     
-    REGLAS Y SKILLS DE ÉLITE (Síguelas estrictamente):
+    CONTEXTO DE REGLAS Y SKILLS:
     ${rulesContent}
     
-    INSTRUCCIONES PARA EL TODO.MD:
-    1. Divide en: Schemas (Zod), Stores (Zustand + Selectors), Services (Axios + Validation) y UI (React 19 Actions).
-    2. Usa casillas de verificación [ ].
-    3. Define las rutas de archivos exactas según la arquitectura.
-    4. Responde SOLO con el contenido del markdown.
-    5. Asegúrate de planificar un archivo independiente por cada Slice en src/store/ y un archivo useAppStore.ts que los unifique mediante el patrón de composición { ...createSlice(...a) }. No planifiques selectores externos"
+    INSTRUCCIONES:
+    - Diseña la arquitectura basándote en las skills de React 19, Zustand 5, Tailwind 4 y Axios.
+    - El plan debe ser modular y seguir la jerarquía de carpetas del proyecto.
+    - Responde solo con el markdown del todo.md.
     `;
 
     try {
         const result = await model.generateContent(prompt);
-        const plan = result.response.text().trim();
-        fs.writeFileSync("todo.md", plan);
-        console.log("\n✅ Plan maestro generado en todo.md");
-    } catch (error) {
-        console.error("❌ Error en v-plan:", error.message);
-    }
+        fs.writeFileSync("todo.md", result.response.text().trim());
+        console.log("✅ todo.md generado con éxito.");
+    } catch (e) { console.error("❌ Error:", e.message); }
 }
 
 generatePlan(process.argv.slice(2).join(" "));

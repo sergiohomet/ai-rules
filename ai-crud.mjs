@@ -1,10 +1,13 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import fs from "fs";
 import path from "path";
+import readline from "readline";
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-// Usamos Flash para que sea rápido y económico
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+const ask = (query) => new Promise((resolve) => rl.question(query, resolve));
 
 function loadAllRules(dir) {
     let content = "";
@@ -15,65 +18,47 @@ function loadAllRules(dir) {
         if (fs.statSync(fullPath).isDirectory()) {
             content += loadAllRules(fullPath);
         } else if (item.endsWith(".md")) {
-            content += fs.readFileSync(fullPath, "utf8") + "\n\n";
+            content += `\n\n--- SKILL SOURCE: ${item} ---\n` + fs.readFileSync(fullPath, "utf8");
         }
     });
     return content;
 }
 
-async function generateCRUD(entityName) {
-    if (!entityName) return console.log("❌ Indica el nombre de la entidad.");
+async function start() {
+    const entity = process.argv[2];
+    if (!entity) return console.log("❌ Indica la entidad.");
+
+    const useApi = (await ask("¿Usar API externa? (s/n): ")).toLowerCase() === 's';
+    const useZustand = (await ask("¿Usar Zustand global? (s/n): ")).toLowerCase() === 's';
+    rl.close();
 
     const rulesContent = loadAllRules("D:/Proyectos/scriptsAI/rules/");
-    let todoContext = fs.existsSync("todo.md") ? fs.readFileSync("todo.md", "utf8") : "";
+    const todoContext = fs.existsSync("todo.md") ? fs.readFileSync("todo.md", "utf8") : "";
 
     const prompt = `
-    Eres un clon de programación de Gentleman Programming y Vercel Labs.
-    Genera un CRUD modular para: "${entityName}".
+    Genera el código para: "${entity}".
+    - API: ${useApi ? 'SÍ' : 'NO (Mocks)'}
+    - Zustand: ${useZustand ? 'SÍ' : 'NO (State nativo)'}
     
-    PLAN DE TRABAJO (todo.md):
-    ${todoContext}
-    
-    BIBLIOTECA DE REGLAS Y SKILLS:
-    ${rulesContent}
-    
-    REQUERIMIENTOS TÉCNICOS:
-    - ZOD: Inferencia de tipos y validación en services.
-    - ZUSTAND 5: Slices con Selectors exportados.
-    - REACT 19: Usar useActionState para el formulario.
-    - TAILWIND 4: Estilos modernos y feedback activo.
+    PLAN: ${todoContext}
+    REGLAS: ${rulesContent}
 
-    REGLAS DE GENERACIÓN DE SLICES:
-    1. Crea la entidad en un archivo de Slice independiente: src/store/${entityName}Slice.ts.
-    2. Importa y combina este Slice en src/store/useAppStore.ts usando el patrón:
-     export const useAppStore = create<MyState>()((...a) => ({
-        ...createEntitySlice(...a),
-     }));
-    3. Genera el código del módulo separando la lógica en un Slice independiente. En los ejemplos de uso en componentes, utiliza siempre useShallow para el destructuring de propiedades del store
-
-    RESPONDE CON ESTE FORMATO:
-    ---FILE:ruta/del/archivo---
-    [Código]
+    FORMATO: ---FILE:ruta/del/archivo--- [Código]
     `;
 
     try {
         const result = await model.generateContent(prompt);
-        const response = result.response.text();
-        const files = response.split("---FILE:");
-
+        const files = result.response.text().split("---FILE:");
         files.forEach(block => {
             if (!block.trim()) return;
-            const [filePath, ...contentParts] = block.split("---");
+            const [filePath, ...content] = block.split("---");
             const cleanPath = filePath.trim();
-            const code = contentParts.join("---").trim().replace(/```typescript|```tsx|```/g, "");
-
+            const code = content.join("---").trim().replace(/```typescript|```tsx|```/g, "");
             fs.mkdirSync(path.dirname(cleanPath), { recursive: true });
             fs.writeFileSync(cleanPath, code);
             console.log(`✅ Generado: ${cleanPath}`);
         });
-    } catch (error) {
-        console.error("❌ Error en v-crud:", error.message);
-    }
+    } catch (e) { console.error("❌ Error:", e.message); }
 }
 
-generateCRUD(process.argv[2]);
+start();

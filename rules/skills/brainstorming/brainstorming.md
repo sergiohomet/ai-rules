@@ -1,20 +1,45 @@
-# 🧠 Skill: Creative Brainstorming & Architecture Design
-Esta skill se activa durante la fase de planificación (`v-plan`) para expandir la visión del proyecto antes de definir el `todo.md`.
+---
+name: creative-brainstorming
+description: Fase de pensamiento crítico y expansión de producto antes de la ejecución técnica.
+metadata:
+  author: Sergio Homet
+  version: "2.0"
+---
 
-## 🚀 Proceso de Pensamiento
-1. **Clarificación**: Identificar ambigüedades en la idea inicial.
-2. **Expansión**: Sugerir 3 funcionalidades "pro" que el usuario no mencionó pero que añaden valor (ej: filtros avanzados, exportación PDF, persistencia local).
-3. **Crítica Técnica**: Evaluar si el stack elegido (Zustand vs Local State) es el óptimo para este tamaño de problema.
+#  Skill: Creative Brainstorming & Architecture Design
 
-## 🛠️ Matriz de Decisión
+Esta skill actúa como un **Senior Product Manager** para expandir la visión del proyecto antes de generar el `todo.md`.
+
+## Proceso de Pensamiento (Divergencia vs. Convergencia)
+
+1. **Clarificación y Datos**: Identificar ambigüedades. 
+   - ¿Requiere persistencia? 
+   - ¿Utilizara Base de Datos?
+   - ¿Qué tipo de Base de Datos es óptima (SQL, NoSQL, LocalStorage)?
+2. **Divergencia (Exploración)**: Sugerir 3 funcionalidades "Pro" que añaden valor real (ej: exportación PDF, Dashboards, Offline Mode).
+3. **Convergencia (Crítica Técnica)**: Evaluar el stack.
+   - ¿Zustand es necesario o basta con Local State?
+   - ¿Es necesario añadir alguna tecnología (TanStack Query, Framer Motion, etc.)?
+   - ¿Falta alguna tecnología clave para el proyecto?
+4. **Navaja de Ockham**: ¿Cuál es la versión más simple y elegante que resuelve el problema sin sobreingeniería?
+
+---
+
+## Matriz de Decisión de Élite
+
 | Dimensión | Enfoque Sugerido |
 | :--- | :--- |
-| **Complejidad de Datos** | ¿Necesitamos un Normalizador? ¿Zod es suficiente? |
-| **Experiencia de Usuario** | ¿Dónde irían los Skeletons? ¿Qué acciones necesitan useOptimistic? |
-| **Escalabilidad** | ¿Este modelo de datos soportará relaciones 1-n en el futuro? |
+| **Arquitectura de Datos** | ¿Necesitamos normalizar o Zod es suficiente? ¿Relaciones 1-n o n-n? |
+| **UX & Rendimiento** | ¿Dónde aplicar Skeletons? ¿Qué acciones requieren `useOptimistic`? |
+| **Escalabilidad** | ¿Cómo se comportará el sistema con x10 veces más datos? |
 
-## ✅ Ejemplo de Salida en v-plan
-Antes de generar el TODO, la IA debe incluir una sección:
-> **💡 Notas de Brainstorming:**
-> - Sugerencia: Añadir un debounced search para no saturar la API.
-> - Riesgo: El filtrado por categorías podría ser lento si el array supera los 1000 items; se recomienda memoización en el Service.
+---
+
+## Ejemplo de Salida en v-plan
+Antes de generar el TODO técnico, la IA DEBE incluir esta sección obligatoriamente:
+
+> **💡 Notas de Brainstorming & Diseño:**
+> - **Propuesta Pro**: Implementar un sistema de "Mascotas Frecuentes" con LocalStorage para acceso rápido.
+> - **Decisión de DB**: Para una veterinaria, se sugiere SQL (PostgreSQL) por la integridad de las relaciones Dueño-Mascota-Visita.
+> - **Optimización**: Usar un `debounced search` en el filtro de pacientes para evitar colapsar el Service.
+> - **Riesgo**: El historial de visitas puede crecer mucho; se recomienda paginación desde el inicio.

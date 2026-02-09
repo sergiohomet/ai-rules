@@ -5,14 +5,14 @@
 
 ✅ **Así SÍ:**
 ```tsx
-const loginSchema = z.object({
-  email: z.string().email("Correo no válido"),
-  password: z.string().min(8, "Mínimo 8 caracteres")
+const Schema = z.object({
+  example1: z.string().email("Correo no válido"),
+  example2: z.string().min(8, "Mínimo 8 caracteres")
 });
 
-type LoginForm = z.infer<typeof loginSchema>;
+type Form = z.infer<typeof loginSchema>;
 
-const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
-  resolver: zodResolver(loginSchema),
+const { register, handleSubmit, formState: { errors } } = useForm<Form>({
+  resolver: zodResolver(Schema),
   mode: "onBlur"
 });

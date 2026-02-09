@@ -6,56 +6,46 @@ import path from "path";
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+function loadAllRules(dir) {
+    let content = "";
+    if (!fs.existsSync(dir)) return content;
+    const items = fs.readdirSync(dir);
+    items.forEach(item => {
+        const fullPath = path.join(dir, item);
+        if (fs.statSync(fullPath).isDirectory()) {
+            content += loadAllRules(fullPath);
+        } else if (item.endsWith(".md") && item.includes("github")) {
+            content += `\n--- REGLA COMMIT: ${item} ---\n` + fs.readFileSync(fullPath, "utf8");
+        }
+    });
+    return content;
+}
+
 async function generateCommit() {
-  const diff = execSync("git diff --cached").toString();
-  if (!diff) {
-    console.log("❌ No hay cambios en stage.");
-    return;
-  }
+    try {
+        const diff = execSync("git diff --cached").toString();
+        if (!diff) return console.log("⚠️ No hay cambios en el stage (usa git add).");
 
-  // 1. Cargar todas las reglas modulares para dar contexto al commit
-  const rulesDir = "D:/Proyectos/scriptsAI/rules/";
-  let combinedRules = "";
-  
-  if (fs.existsSync(rulesDir)) {
-    combinedRules = fs.readdirSync(rulesDir)
-      .filter(file => file.endsWith(".md"))
-      .map(file => fs.readFileSync(path.join(rulesDir, file), "utf8"))
-      .join("\n\n");
-  }
+        const rules = loadAllRules("D:/Proyectos/scriptsAI/rules/");
+        
+        const prompt = `
+        Actúa como un Senior Developer. Genera un mensaje de commit corto siguiendo estas reglas:
+        ${rules}
+        
+        CAMBIOS REALIZADOS:
+        ${diff}
 
-  const prompt = `
-    Actúa como un experto en Git y Senior Frontend Developer. 
-    Genera un mensaje de commit corto, profesional y descriptivo basado en este diff:
-    ${diff}
-    
-    Usa el contexto de mis reglas de arquitectura para identificar qué se cambió (ej: si es un Store de Zustand, un Schema de Zod, etc):
-    ${combinedRules}
-    
-    INSTRUCCIONES:
-    - Responde ÚNICAMENTE con el mensaje del commit.
-    -Analiza mis cambios de git y genera una descripción de Pull Request siguiendo la Skill de Gentleman:
-    - Título claro
-    - Qué se hizo (Summary)
-    - Cómo se probó
-    - Breaking changes?
-  `;
+        FORMATO REQUERIDO: <type>(<scope>): <desc>
+        No des explicaciones, solo devuelve el mensaje de commit.
+        `;
 
-  try {
-    const result = await model.generateContent(prompt);
-    const message = result.response.text().trim();
-
-    // Ejecuta el commit
-    execSync(`git commit -m "${message}"`);
-
-    console.log("\n✅ Commit realizado con éxito:");
-    console.log("-----------------------------------------");
-    console.log(`💬 "${message}"`);
-    console.log("-----------------------------------------\n");
-
-  } catch (error) {
-    console.error("❌ Error al generar el commit:", error.message);
-  }
+        const result = await model.generateContent(prompt);
+        const msg = result.response.text().trim().replace(/`/g, "");
+        
+        console.log(`\n📝 Sugerencia: ${msg}`);
+        execSync(`git commit -m "${msg}"`);
+        console.log("✅ Commit realizado con éxito.");
+    } catch (e) { console.error("❌ Error:", e.message); }
 }
 
 generateCommit();

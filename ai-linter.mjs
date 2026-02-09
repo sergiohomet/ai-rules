@@ -5,7 +5,7 @@ import path from "path";
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-// 🛠️ LA FUNCIÓN DE RUTA VA AQUÍ (Igual que en v-plan y v-crud)
+// LA FUNCIÓN DE RUTA VA AQUÍ (Igual que en v-plan y v-crud)
 function loadAllRules(dir) {
     let content = "";
     if (!fs.existsSync(dir)) return content;
@@ -56,7 +56,7 @@ async function lintFile(filePath) {
     `;
 
     try {
-        console.log(`🔍 Auditando ${filePath}...`);
+        console.log(`Auditando ${filePath}...`);
         const result = await model.generateContent(prompt);
         console.log("\n--- RESULTADO DE LA AUDITORÍA ---");
         console.log(result.response.text());

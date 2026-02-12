@@ -3,7 +3,7 @@ name: creative-brainstorming
 description: Fase de pensamiento crítico y expansión de producto antes de la ejecución técnica.
 metadata:
   author: Sergio Homet
-  version: "2.0"
+  version: "1.0"
 ---
 
 #  Skill: Creative Brainstorming & Architecture Design

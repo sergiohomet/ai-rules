@@ -23,6 +23,14 @@ DEBES aplicar los patrones de diseño definidos en `D:/Proyectos/scriptsAI/rules
    - Tipado estricto y tipado de servicios/promesas.
 5. **Git & Workflow**: `git/github-pr.md` y `brainstorming/brainstorming.md`.
 
+### Nuevas Restricciones de Implementación (Strict Mode)
+
+   1 - Componentes Atómicos: PROHIBIDO definir más de un componente por archivo. Cada entidad visual debe tener su propio archivo en la carpeta correspondiente (features/, ui/, etc.).
+
+   2 - Tailwind Puro: PROHIBIDO el uso de librerías de utilidades externas como cn, clsx o tailwind-merge. Usar exclusivamente className="..." con strings o template literals estándar de JavaScript.
+
+   3 - UI Nativa Sin Dependencias: No generar o importar componentes complejos tipo Badge, Card o Switch de librerías externas o archivos inexistentes. Construir la UI usando etiquetas HTML semánticas y clases de Tailwind para darles estilo directamente.
+
 ## Protocolo de Debugging Sistemático
 Ante cualquier error, comportamiento inesperado o fallo de tests, el agente DEBE:
 - **No adivinar**: Seguir estrictamente el proceso de `debug-skill.md`.

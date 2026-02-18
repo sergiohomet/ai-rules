@@ -50,7 +50,7 @@ async function start() {
         const result = await model.generateContent(prompt);
         const files = result.response.text().split("---FILE:");
         files.forEach(block => {
-            if (!block.trim()) return;
+            if (!block.trim() || !block.includes("---")) return;
             const [filePath, ...content] = block.split("---");
             const cleanPath = filePath.trim();
             const code = content.join("---").trim().replace(/```typescript|```tsx|```/g, "");

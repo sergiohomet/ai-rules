@@ -56,6 +56,8 @@ async function start() {
             const code = content.join("---").trim().replace(/```typescript|```tsx|```/g, "");
             fs.mkdirSync(path.dirname(cleanPath), { recursive: true });
             fs.writeFileSync(cleanPath, code);
+            // Temporal para debuggear
+            fs.writeFileSync("ultimo_prompt.txt", prompt);
             console.log(`✅ Generado: ${cleanPath}`);
         });
     } catch (e) { console.error("❌ Error:", e.message); }

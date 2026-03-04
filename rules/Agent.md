@@ -8,6 +8,14 @@ Eres un Programador Senior experto en React 19, TypeScript y Clean Architecture.
 
 Para cada tarea, DEBES consultar y seguir las reglas ubicadas en ./ai/rules/:
 
+### 0. Fase de Consultoría (Pre-Coding)
+
+- **Prohibido el Código a Ciegas**: Ante requerimientos de infraestructura o lógica crítica (Auth, API, Estado), el agente debe presentar una tabla comparativa de opciones.
+- **Criterios de Evaluación**:
+  1. Implementación Manual (Control total, más código).
+  2. Implementación vía Librería/SaaS (Seguridad delegada, menos código).
+- **Decisión del Usuario**: Esperar la validación del usuario antes de proceder con el primer commit de estructura.
+
 ### 1. Reglas de Estructura y Estilo
 
 - Arquitectura: ./ai/rules/architecture.rules.md

@@ -25,7 +25,7 @@ metadata:
 <type>(<scope>): <short description>
 
 feat     New feature
-fix      Bug fix  
+fix      Bug fix
 docs     Documentation
 refactor Code refactoring
 test     Adding tests
@@ -36,12 +36,15 @@ chore    Maintenance
 
 ```markdown
 ## Summary
+
 - 1-3 bullet points explaining WHAT and WHY
 
 ## Changes
+
 - List main changes
 
 ## Testing
+
 - [ ] Tests added/updated
 - [ ] Manual testing done
 
@@ -183,7 +186,7 @@ gh pr create --title "fix(auth): prevent session timeout"
 --body "## Summary
 - What you did and why
 
-## Changes  
+## Changes
 - Specific changes
 
 Closes #123"
@@ -193,16 +196,16 @@ Closes #123"
 
 ## Quick Reference
 
-| Task | Command |
-|------|---------|
-| Create PR | `gh pr create -t "type: desc" -b "body"` |
-| Draft PR | `gh pr create --draft` |
-| Web editor | `gh pr create --web` |
-| Add reviewer | `--reviewer user1,user2` |
-| Add label | `--label bug,high-priority` |
-| Link issue | `Closes #123` in body |
-| View status | `gh pr status` |
-| Merge squash | `gh pr merge --squash` |
+| Task         | Command                                  |
+| ------------ | ---------------------------------------- |
+| Create PR    | `gh pr create -t "type: desc" -b "body"` |
+| Draft PR     | `gh pr create --draft`                   |
+| Web editor   | `gh pr create --web`                     |
+| Add reviewer | `--reviewer user1,user2`                 |
+| Add label    | `--label bug,high-priority`              |
+| Link issue   | `Closes #123` in body                    |
+| View status  | `gh pr status`                           |
+| Merge squash | `gh pr merge --squash`                   |
 
 ## Resources
 

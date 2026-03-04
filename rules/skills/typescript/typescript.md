@@ -39,7 +39,7 @@ interface UserAddress {
 interface User {
   id: string;
   name: string;
-  address: UserAddress;  // Reference, not inline
+  address: UserAddress; // Reference, not inline
 }
 
 interface Admin extends User {
@@ -48,7 +48,7 @@ interface Admin extends User {
 
 // ❌ NEVER: Inline nested objects
 interface User {
-  address: { street: string; city: string };  // NO!
+  address: { street: string; city: string }; // NO!
 }
 ```
 
@@ -67,23 +67,23 @@ function first<T>(arr: T[]): T | undefined {
 }
 
 // ❌ NEVER
-function parse(input: any): any { }
+function parse(input: any): any {}
 ```
 
 ## Utility Types
 
 ```typescript
-Pick<User, "id" | "name">     // Select fields
-Omit<User, "id">              // Exclude fields
-Partial<User>                 // All optional
-Required<User>                // All required
-Readonly<User>                // All readonly
-Record<string, User>          // Object type
-Extract<Union, "a" | "b">     // Extract from union
-Exclude<Union, "a">           // Exclude from union
-NonNullable<T | null>         // Remove null/undefined
-ReturnType<typeof fn>         // Function return type
-Parameters<typeof fn>         // Function params tuple
+Pick<User, "id" | "name">; // Select fields
+Omit<User, "id">; // Exclude fields
+Partial<User>; // All optional
+Required<User>; // All required
+Readonly<User>; // All readonly
+Record<string, User>; // Object type
+Extract<Union, "a" | "b">; // Extract from union
+Exclude<Union, "a">; // Exclude from union
+NonNullable<T | null>; // Remove null/undefined
+ReturnType<typeof fn>; // Function return type
+Parameters<typeof fn>; // Function params tuple
 ```
 
 ## Type Guards
@@ -107,4 +107,5 @@ import { createUser, type Config } from "./utils";
 ```
 
 ## Keywords
+
 typescript, ts, types, interfaces, generics, strict mode, utility types

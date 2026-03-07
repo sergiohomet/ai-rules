@@ -26,3 +26,10 @@ description: Guía de estilos Tailwind 4 con enfoque Mobile-First, Responsive La
 - **Iconografía**: Usar exclusivamente `@tabler/icons-react`.
 - **Feedback**: Elementos clickeables deben incluir `transition-all active:scale-95 duration-200`.
 - **Limpieza**: No duplicar clases. Si un patrón se repite 3 veces, extraer a un componente en `src/components/ui`.
+
+## 💎 Interface Design & Craft (Integration)
+
+- **Prohibición de Defaults**: No generar interfaces que parezcan plantillas. Si el diseño se ve "común", falló.
+- **Jerarquía de Texto**: Usar los 4 niveles (Primary, Secondary, Tertiary, Muted) alineados con `text-slate-X` o tokens semánticos.
+- **Symmetry & Spacing**: Mantener la base de `gap-4 md:gap-8` pero asegurando que el padding sea simétrico y motivado por el contenido.
+- **Signature Element**: Cada vista compleja debe tener UN elemento visual o interactivo que sea único del dominio del producto.

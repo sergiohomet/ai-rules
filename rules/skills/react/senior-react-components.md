@@ -1,23 +1,23 @@
 ---
 name: SeniorReactFusion
-description: Use when building high-performance, type-safe React 19 components with Tailwind 4 and Zod. Essential for complex state or generic UI patterns.
+description: Usar al construir componentes de React 19 de alto rendimiento y tipado seguro con Tailwind 4 y Zod. Esencial para estados complejos o patrones de UI genéricos.
 ---
 
-# Senior React + TypeScript Fusion
+# Fusión Senior: React + TypeScript
 
-Expert-level patterns for React 19, combining advanced TypeScript inference with high-performance component architecture.
+Patrones de nivel experto para React 19, combinando inferencia avanzada de TypeScript con arquitectura de componentes de alto rendimiento.
 
-## 🏗️ Architectural Core
+## 🏗️ Núcleo Arquitectónico
 
-- **One File, One Component**: No multi-component exports.
-- **Logic Isolation**: All domain logic, event handlers, and complex state must live in custom hooks (`src/hooks/`).
-- **Data Decoupling**: Static text, image URLs, and mock lists must live in `src/data/mockData.ts`.
-- **Pure Tailwind 4**: Strict prohibition of `cn`, `clsx`, or `tailwind-merge`. Use semantic TW4 classes only.
+- **Un Archivo, Un Componente**: Prohibido exportar múltiples componentes por archivo.
+- **Aislamiento de Lógica**: Toda la lógica de dominio, manejadores de eventos y estados complejos deben vivir en hooks personalizados (`src/hooks/`).
+- **Desacoplamiento de Datos**: Textos estáticos, URLs de imágenes y listas de prueba deben vivir en `src/data/mockData.ts`.
+- **Tailwind 4 Puro**: Prohibición estricta de `cn`, `clsx` o `tailwind-merge`. Usar solo clases semánticas de TW4.
 
-## 🧪 TypeScript Advanced Patterns
+## 🧪 Patrones Avanzados de TypeScript
 
-### 1. Readonly Props & Inferred Generics
-Every component must define a `Readonly` interface for its props. Use generics for components that handle dynamic data.
+### 1. Props de Solo Lectura e Inferencia de Genéricos
+Cada componente debe definir una interfaz `Readonly` para sus props. Usar genéricos para componentes que manejan datos dinámicos.
 
 ```typescript
 interface ListProps<T> {
@@ -39,8 +39,8 @@ export function GenericList<T>({ items, renderItem, keyExtractor }: ListProps<T>
 }
 ```
 
-### 2. Validation Bridge (Zod + React 19)
-Prohibit processing API data without Zod validation. Use `useActionState` for form handling.
+### 2. Puente de Validación (Zod + React 19)
+Prohibido procesar datos de API sin validación previa con Zod. Usar `useActionState` para formularios.
 
 ```typescript
 const UserSchema = zod.object({
@@ -51,23 +51,23 @@ const UserSchema = zod.object({
 type User = zod.infer<typeof UserSchema>;
 
 export function UserProfile({ data }: { readonly data: unknown }) {
-  // Strict Validation at the entry point
+  // Validación estricta en el punto de entrada
   const result = UserSchema.safeParse(data);
-  if (!result.success) throw new Error("Invalid User Data");
+  if (!result.success) throw new Error("Datos de usuario inválidos");
   
   const user = result.data;
-  // ... render
+  // ... renderizado
 }
 ```
 
-## ⚡ React 19 Best Practices
+## ⚡ Mejores Prácticas de React 19
 
-- **The `use()` Hook**: Use for consuming Promises and Contexts inside loops or conditions (where permitted).
-- **Actions**: Leverage `useActionState` and `useFormStatus` for pending states and optimistic updates.
-- **React Compiler ready**: Avoid `useMemo` and `useCallback` unless specifically required for expensive computations not yet optimized by the compiler.
+- **Hook `use()`**: Usar para consumir Promesas y Contextos dentro de bucles o condiciones (donde esté permitido).
+- **Actions**: Aprovechar `useActionState` y `useFormStatus` para estados pendientes y actualizaciones optimistas.
+- **Listo para React Compiler**: Evitar `useMemo` y `useCallback` a menos que sea estrictamente necesario para cálculos costosos no optimizados por el compilador.
 
-## 🎨 Visual Excellence (Tailwind 4)
+## 🎨 Excelencia Visual (Tailwind 4)
 
-- **Semantic Tokens**: Avoid hex codes. Use theme variables.
-- **Mobile-First Binary**: If it's not perfectly responsive at 375px, it's a bug.
-- **Anti-Slop**: No generic "Card" or "Modal". Use custom, high-fidelity designs with micro-animations.
+- **Tokens Semánticos**: Evitar códigos hexadecimales. Usar variables de tema.
+- **Mobile-First Binario**: Si no es perfectamente responsivo a 375px, es un error.
+- **Anti-Slop**: Nada de "Cards" o "Modals" genéricos. Crear diseños personalizados de alta fidelidad con micro-animaciones.

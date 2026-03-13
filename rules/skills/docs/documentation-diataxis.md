@@ -1,28 +1,28 @@
 ---
 name: DocumentationDiataxis
-description: Use when creating tutorials, how-to guides, technical references, or conceptual explanations. Follows the Diátaxis framework.
+description: Usar al crear tutoriales, guías de "cómo hacer", referencias técnicas o explicaciones conceptuales. Sigue el framework Diátaxis.
 ---
 
-# Diátaxis Documentation Expert
+# Experto en Documentación Diátaxis
 
-Strict adherence to the Diátaxis framework for creating user-centric, goal-oriented documentation.
+Adherencia estricta al framework Diátaxis para crear documentación centrada en el usuario y orientada a objetivos.
 
-## 🧭 The Four Quadrants
+## 🧭 Los Cuatro Cuadrantes
 
-1. **Tutorials (Learning-oriented)**: Practical steps to guide a newcomer. A lesson.
-2. **How-to Guides (Problem-oriented)**: Steps to solve a specific problem. A recipe.
-3. **Reference (Information-oriented)**: Technical descriptions, APIs, CLI commands. A dictionary.
-4. **Explanation (Understanding-oriented)**: Clarifying a topic, architecture, or design decision. A discussion.
+1. **Tutoriales (Orientados al aprendizaje)**: Pasos prácticos para guiar a un recién llegado. Una lección.
+2. **Guías de "Cómo hacer" (Orientadas a problemas)**: Pasos para resolver un problema específico. Una receta.
+3. **Referencia (Orientada a la información)**: Descripciones técnicas, APIs, comandos CLI. Un diccionario.
+4. **Explicación (Orientada a la comprensión)**: Clarificar un tema, arquitectura o decisión de diseño. Una discusión.
 
-## ✍️ Guiding Principles
+## ✍️ Principios Guía
 
-- **Clarity**: Simple, unambiguous language.
-- **Accuracy**: Code snippets must be verified and up-to-date.
-- **User-Centric**: Every doc must help a specific user achieve a specific goal.
-- **Consistency**: Unified tone and terminology.
+- **Claridad**: Lenguaje simple y sin ambigüedades.
+- **Precisión**: Los fragmentos de código deben estar verificados y actualizados.
+- **Centrado en el Usuario**: Cada documento debe ayudar a un usuario específico a lograr un objetivo específico.
+- **Consistencia**: Tono y terminología unificados.
 
-## 📝 Workflow
+## 📝 Flujo de Trabajo
 
-1. **Clarify**: Identify the quadrant, target audience, and scope before writing.
-2. **Outline**: Propose a structured Table of Contents.
-3. **Generate**: Write content once the outline is approved.
+1. **Clarificar**: Identificar el cuadrante, la audiencia objetivo y el alcance antes de escribir.
+2. **Estructurar**: Proponer una Tabla de Contenidos estructurada.
+3. **Generar**: Escribir el contenido una vez aprobada la estructura.

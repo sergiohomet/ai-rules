@@ -1,29 +1,29 @@
 ---
 name: SkillEngineering
-description: Use when creating new AI skills or updating existing ones. Follows the RED-GREEN-REFACTOR cycle for process documentation.
+description: Usar al crear nuevas skills de IA o actualizar las existentes. Sigue el ciclo RED-GREEN-REFACTOR para la documentación de procesos.
 ---
 
-# Skill Engineering & Development
+# Ingeniería y Desarrollo de Skills
 
-A TDD-based approach to creating high-performance, trigger-reliable AI skills.
+Un enfoque basado en TDD para crear skills de IA de alto rendimiento y activación confiable.
 
-## 🛠️ The Skill Creation Cycle (TDD)
+## 🛠️ El Ciclo de Creación de Skills (TDD)
 
-1. **RED (Baseline)**: Watch an agent fail or perform sub-optimally without the skill.
-2. **GREEN (Implementation)**: Write the minimal `SKILL.md` that solves the detected failure.
-3. **REFACTOR (Loopholes)**: Close edge cases, optimize for token efficiency, and add "pushy" descriptions.
+1. **RED (Línea base)**: Observar a un agente fallar o actuar de forma subóptima sin la skill.
+2. **GREEN (Implementación)**: Escribir el `SKILL.md` mínimo que resuelva el fallo detectado.
+3. **REFACTOR (Brechas)**: Cerrar casos de borde, optimizar la eficiencia de tokens y añadir descripciones "proactivas".
 
-## 📋 SKILL.md Anatomy
+## 📋 Anatomía de un SKILL.md
 
-- **Name**: URL-safe, hyphens only.
-- **Description**: Third-person. Start with "Use when...". Focus on **triggering conditions** (symptoms/contexts), NOT what the skill does.
-- **Body**:
-  - **Overview**: Core principle in 1-2 sentences.
-  - **Core Pattern**: Clear before/after examples.
-  - **Common Mistakes**: "Anti-patterns" and their fixes.
+- **Name**: Seguro para URLs, solo guiones.
+- **Description**: En tercera persona. Empezar con "Usar cuando...". Enfocarse en las **condiciones de activación** (síntomas/contextos), NO en lo que hace la skill.
+- **Cuerpo**:
+  - **Resumen (Overview)**: Principio central en 1-2 frases.
+  - **Patrón Principal**: Ejemplos claros de antes/después.
+  - **Errores Comunes**: "Antipatrones" y sus soluciones.
 
-## 🚀 Optimization (CSO)
+## 🚀 Optimización (CSO)
 
-- **Pushy Triggering**: Claude tends to "undertrigger". Explicitly tell Claude to use the skill even if the user doesn't ask for it by name.
-- **Token Efficiency**: Keep `SKILL.md` under 500 lines. Use nested references for heavy documentation.
-- **No Narratives**: Skills are for reusable patterns, not stories about how a problem was solved once.
+- **Activación Proactiva**: Claude tiende a "infra-activar". Dile explícitamente a Claude que use la skill aunque el usuario no la pida por su nombre.
+- **Eficiencia de Tokens**: Mantener `SKILL.md` bajo 500 líneas. Usar referencias anidadas para documentación pesada.
+- **Sin Narrativas**: Las skills son para patrones reutilizables, no historias sobre cómo se resolvió un problema una vez.

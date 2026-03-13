@@ -1,26 +1,26 @@
 ---
 name: DiscoveryFind
-description: Use when the user needs to find, explore, or install new skills from the repository or external sources.
+description: Usar cuando el usuario necesite encontrar, explorar o instalar nuevas skills desde el repositorio o fuentes externas.
 ---
 
-# Skill Discovery & Presentation
+# Descubrimiento y Presentación de Skills
 
-Patterns for helping users find and manage the right tools for their tasks.
+Patrones para ayudar a los usuarios a encontrar y gestionar las mejores herramientas para sus tareas.
 
-## 🔍 Discovery Protocol
+## 🔍 Protocolo de Descubrimiento
 
-1. **Understand Intent**: Analyze the current task to see if an existing skill (local or remote) can assist.
-2. **Search**: Use `find-skills` or internal directory listing to match keywords.
-3. **Present Options**: Show a clear table or list of skills with their descriptions.
-4. **Offer Installation**: Proactively offer to set up the skill if it's not already in the project.
+1. **Entender la Intención**: Analizar la tarea actual para ver si una skill existente (local o remota) puede ayudar.
+2. **Búsqueda**: Usar `find-skills` o listado de directorios internos para coincidir palabras clave.
+3. **Presentar Opciones**: Mostrar una tabla o lista clara de las skills con sus descripciones.
+4. **Ofrecer Instalación**: Ofrecer proactivamente configurar la skill si no está ya en el proyecto.
 
-## 📊 Presentation Format
+## 📊 Formato de Presentación
 
-| Skill Name | Purpose | When to Use |
+| Nombre de la Skill | Propósito | Cuándo usar |
 | :--- | :--- | :--- |
-| **[Skill Name]** | High-level goal | Specific symptoms/triggers |
+| **[Nombre]** | Objetivo de alto nivel | Síntomas/disparadores específicos |
 
-## 💡 Best Practices
+## 💡 Mejores Prácticas
 
-- Suggest skills even if the user doesn't know they exist.
-- Link discovery to the `implementation_plan.md` when suggesting new patterns.
+- Sugerir skills incluso si el usuario no sabe que existen.
+- Vincular el descubrimiento al `implementation_plan.md` al sugerir nuevos patrones.

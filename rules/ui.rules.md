@@ -12,24 +12,23 @@ description: Guía de estilos Tailwind 4 con enfoque Mobile-First, Responsive La
 - **Anti-Overflow**:
   - Todo layout principal debe llevar `overflow-x-hidden` para evitar el scroll horizontal accidental.
   - Usar `break-words` o `truncate` en textos largos para que no rompan la caja en mobile.
-- **Espacios en Blanco**: Prohibido dejar huecos muertos. Usar `min-h-dvh` (Dynamic Viewport Height) en el layout principal para que el footer siempre esté abajo y el fondo cubra todo el alto de pantalla.
+- **Espacios en Blanco**: Prohibido dejar huecos muertos. Usar `min-h-dvh` en el layout principal.
 
 ## 🎨 Diseño por Dispositivo
 
 - **Mobile/Tablet**: Usar `grid-cols-1` o `grid-cols-2`. Touch targets mínimos de `44x44px`.
 - **Notebook/PC**: Transicionar a `grid-cols-12` para layouts complejos.
-- **Gaps Inteligentes**: Usar `gap-4 md:gap-6 lg:gap-8` para mantener la densidad visual equilibrada.
+- **Gaps Inteligentes**: Usar `gap-4 md:gap-6 lg:gap-8`.
 
 ## 🛠 Interactividad y Componentes
 
 - **Framework**: React 19 con Tailwind CSS 4.
 - **Iconografía**: Usar exclusivamente `@tabler/icons-react`.
 - **Feedback**: Elementos clickeables deben incluir `transition-all active:scale-95 duration-200`.
-- **Limpieza**: No duplicar clases. Si un patrón se repite 3 veces, extraer a un componente en `src/components/ui`.
+- **Limpieza**: Si un patrón se repite 3 veces, extraer a un componente en `src/components/ui`.
 
-## 💎 Interface Design & Craft (Integration)
+## 💎 UI/UX Pro Max Integration
 
-- **Prohibición de Defaults**: No generar interfaces que parezcan plantillas. Si el diseño se ve "común", falló.
-- **Jerarquía de Texto**: Usar los 4 niveles (Primary, Secondary, Tertiary, Muted) alineados con `text-slate-X` o tokens semánticos.
-- **Symmetry & Spacing**: Mantener la base de `gap-4 md:gap-8` pero asegurando que el padding sea simétrico y motivado por el contenido.
-- **Signature Element**: Cada vista compleja debe tener UN elemento visual o interactivo que sea único del dominio del producto.
+- **Referencia Obligatoria**: Consultar `./ai/rules/ui-ux-pro-max.md` para decisiones de arquitectura de producto.
+- **Jerarquía de Texto**: Usar tokens semánticos alineados con `text-slate-X`.
+- **No-Defaults**: Rechazar soluciones que parezcan plantillas genéricas. Aplicar elevación mediante sombras suaves multi-capa y micro-interacciones.

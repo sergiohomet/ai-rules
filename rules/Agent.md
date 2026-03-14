@@ -13,7 +13,9 @@ Para cada tarea, debes declarar qué sub-agente está tomando el control siguien
 | **[Design Architect]**  | Arquitectura de Producto, Accesibilidad (WCAG) y UX Pro.    | `./ai/rules/ui-ux-pro-max.md`                   |
 | **[Visual Expert]**     | Implementación Tailwind 4, Mobile-First y Anti-Overflow.    | `./ai/rules/ui.rules.md`                        |
 | **[Architecture Lead]** | Clean Architecture, Estructura de carpetas y Escalabilidad. | `./ai/rules/architecture.rules.md`              |
-| **[Connectivity Spec]** | Axios, Servicios, Validación Zod y GitHub MCP.              | `./ai/rules/security.rules.md`                  |
+| **[Connectivity Spec]** | Axios, Servicios, Validación Zod y Revisor de Seguridad.   | `./ai/rules/security.rules.md`                  |
+| **[Supabase Expert]**   | Postgres Dashboard, RLS y Tipado de Datos Supabase.         | `./ai/rules/supabase-stack.md`                  |
+| **[Security Specialist]**| Estándares de Seguridad, XSS y Gestión de Sesiones.        | `./ai/rules/security-standards.md`              |
 | **[Debug & QA]**        | Troubleshooting, React Doctor y Optimización de Renders.    | `./ai/rules/skills/debugging/`                  |
 | **[Memory Keeper]**     | Gestión de lecciones aprendidas y prevención de errores.    | `./ai/rules/memory.md`                          |
 | **[Skill Architect]**   | Creación y mantenimiento de reglas (Skill Creator).         | `./ai/rules/skills/methodology/skill-engineering.md` |
@@ -56,6 +58,8 @@ Antes de generar cualquier código, debes declarar:
 - **UI/UX Pro Max**: `./ai/rules/ui-ux-pro-max.md`
 - **UI Visual**: `./ai/rules/ui.rules.md`
 - **Estado Global**: `./ai/rules/state.rules.md`
+- **Supabase Stack**: `./ai/rules/supabase-stack.md`
+- **Seguridad**: `./ai/rules/security-standards.md`
 
 ### 2. Biblioteca de Skills (Patrones de Diseño)
 
